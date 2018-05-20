@@ -1,0 +1,48 @@
+[debug] [2017-12-30T00:03:03.708Z] ----------------------------------------------------------------------
+[debug] [2017-12-30T00:03:03.711Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2017-12-30T00:03:03.712Z] CLI Version:   3.16.0
+[debug] [2017-12-30T00:03:03.712Z] Platform:      darwin
+[debug] [2017-12-30T00:03:03.712Z] Node Version:  v6.11.3
+[debug] [2017-12-30T00:03:03.712Z] Time:          Fri Dec 29 2017 16:03:03 GMT-0800 (PST)
+[debug] [2017-12-30T00:03:03.712Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-12-30T00:03:03.723Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-12-30T00:03:03.724Z] > authorizing via signed-in user
+[debug] [2017-12-30T00:03:03.725Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-12-30T00:03:03.726Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/NSoTceYV_kCUkjqVVSApW8fM5LXTG01ossOldoVXz_U',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Fri Dec 29 2017 16:03:03 GMT-0800 (PST)
+[debug] [2017-12-30T00:03:03.942Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-30T00:03:03.957Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/spotify-91088  
+  
+ Fri Dec 29 2017 16:03:03 GMT-0800 (PST)
+[debug] [2017-12-30T00:03:04.445Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-30T00:03:04.447Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/spotify-91088/tokens  
+  
+ Fri Dec 29 2017 16:03:04 GMT-0800 (PST)
+[debug] [2017-12-30T00:03:04.988Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/Yash/Downloads/spotify'...
+[info] 
+[debug] [2017-12-30T00:03:04.993Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/spotify-91088  
+  
+ Fri Dec 29 2017 16:03:04 GMT-0800 (PST)
+[debug] [2017-12-30T00:03:05.626Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-30T00:03:05.627Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1011126586162/clients/_:getWebAppConfig  
+  
+ Fri Dec 29 2017 16:03:05 GMT-0800 (PST)
+[debug] [2017-12-30T00:03:07.511Z] <<< HTTP RESPONSE 200
+[debug] [2017-12-30T00:03:07.543Z] TypeError: Cannot read property 'public' of undefined
+    at Server.<anonymous> (/usr/local/lib/node_modules/firebase-tools/lib/serve/hosting.js:34:17)
+    at Server.g (events.js:292:16)
+    at emitNone (events.js:86:13)
+    at Server.emit (events.js:185:7)
+    at emitListeningNT (net.js:1284:10)
+    at _combinedTickCallback (internal/process/next_tick.js:77:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:128:9)
+[error] 
+[error] Error: An unexpected error has occurred.

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+
+
+	<script src="https://use.fontawesome.com/8130789d52.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/jquery-confirm.min.css">
+	<script src="js/jquery-confirm.min.js"></script>
+
+		<script type="text/javascript">
+			if(window.location.hash){
+				var hash = window.location.hash.substring(1);
+				var access = hash.split('&')[0].split('=')[1];
+				//set local storage (access)
+				localStorage.setItem("accessToken", access);
+
+			}
+		
+	</script>
+	<title>SPOTIFY</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="node_modules/spotify-web-api-js/src/spotify-web-api.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+	
+	<script src = "dash.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="callback.css">
+</head>
+<body>
+	
+	
+	<a id="logout" style="float:right;display:inline-block;text-align:right;position: absolute; top:10px; right:20px;" href="javascript:logout()">Log Out</a>
+	<div class = "">
+		<center><img src = "white.png" style = "width:25%;margin-top:100px"></center>
+		<!--<h1 class = "title">SPOTIFY HACKS.</h1></center>-->
+		<!--<hr class = "spotifyhr">-->
+	</div>
+	<div class = "container ">
+		<div class = "row">
+			<div class="col-md-5  introRow">
+				<div class = " addPad containerblack">
+					<h1 class = "downloadtitle" style = "margin-bottom: 0px;">Welcome!</h1>
+					<hr class = "thicc" />
+					<h2 style="color:white;font-size: 20px; font-family: 'Montserrat';font-weight: 300;line-height: 2em;">This is the ultimate app to download ALL of your songs on Spotify - it's fast, easy, but more importantly, it's free.</h2>
+				</div>
+				
+			</div>
+
+			<div class="col-md-7  introRow">
+				<div class = "addPad parent containerblack">
+					<div class = "leftOne"><img id = "userpic" src="" width= "200px" height = "200px" /></div>
+					<div class = "rightOne">
+						<h1 class = "downloadtitle" id = "username" style = "margin-bottom: 0px;"></h1>
+						<hr class = "thicc" />
+						<h2 id = "userEmail"></h2>
+					</div>
+					
+				</div>
+				
+				
+				
+			</div>
+		</div>
+		
+	</div>
+
+		<div class = "container containerblack instruct">
+			<div class = "playlistholder" id = "playlistholder"></div>
+		</div>
+
+		<div id="tableCont" class = "container containerblack" style = "margin-top: 100px;padding:25px">
+		<center><h1 class = "downloadtitle">Add Individual Tracks</h1></center>
+		<input class = "searchbox" placeholder="Song Name" onchange="showTrack(this.value)" />
+		 	<table style="width:100%;padding-bottom: 20px" id="songTable">
+			  
+			  <tr>
+			    <th class = "preset">Song Name</th>
+			    <th class = "preset" >Artist</th> 
+			    <th class = "preset">Album</th> 
+			    <th class = "preset">Length</th> 
+			</tr>
+			<script type="text/javascript">
+
+				$("#song").click(function() {
+					var datalink = $(this).attr('datalink');
+				});
+
+				
+
+			</script>
+			</table>
+		</div>
+
+		<div id="tableCont" class = "container containerblack" style = "margin-top: 100px;padding:25px">
+			<center><h1 class = "downloadtitle">Download List</h1></center>
+
+		 	<table style="width:100%;padding-bottom: 20px" id="totalList">
+			  <div id = "playlistNames">
+			  	
+			  	<p class = "added">Playlists Added: </p>
+			  	  <div style="float: right; display: inline-block;"  id="download_button" class = "downloadbtn" >DOWNLOAD</div>
+			  </div>
+
+			  <script type="text/javascript">
+
+			  	
+
+
+
+			  </script>
+
+
+
+			  <tr>
+			    <th class = "preset">Song Name</th>
+			    <th class = "preset" >Artist</th> 
+			    <th class = "preset">Album</th> 
+			    <th class = "preset">Length</th> 
+			    <th class = "preset">Added With</th>
+			  </tr>
+			</table>
+		</div>	
+	</div>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js"></script>
+
+	<script type="text/javascript">
+		/* AU: reformat this */
+		
+
+
+
+		//get local storage access
+		var access = localStorage.getItem("accessToken");
+		
+
+		var spotifyApi = new SpotifyWebApi({
+		  clientId : '8e9987b977fb4dcfb4c6c0e3485a224c',
+		  clientSecret : '51c74fe9b425427aba66971597639b6c',
+		});
+
+		spotifyApi.setAccessToken(access);
+		var email = "";
+		
+
+		var userid = "";
+
+		var mypersonName = "";
+		var personEmail = "";
+
+		var userPlaylists;
+
+		var queuePlaylists = [];
+
+		var totalSongsList = {
+			
+		};
+
+		var startIndex = 0;
+
+		var config = {
+			apiKey: "AIzaSyAVTCPdbvGLUlEC-DHgjWZUkziz9R1mknw",
+			authDomain: "spotify-91088.firebaseapp.com",
+			databaseURL: "https://spotify-91088.firebaseio.com",
+			storageBucket: "spotify.appspot.com"
+		};
+		firebase.initializeApp(config);
+
+		// Get a reference to the database service
+		var database = firebase.database();
+
+		
+
+
+		
+
+
+		function showPlaylistInQueue(){
+			var nameHolder = document.getElementById("playlistNames");
+			nameHolder.innerHTML = "<p class = 'added'>Playlists Added: </p> <div style='float: right; display: inline-block;' id='download_button' class='downloadbtn'>DOWNLOAD</div>";
+			$(".downloadbtn").click(function() {
+				  	  		
+	    		console.log("nigga");
+
+	    		function writeUserData() {
+	    			//var personID = firebase.database().ref().child('users').push();
+
+	    		  firebase.database().ref('users/' + mypersonID ).set({
+	    		    name: personName,
+	    		    email: personEmail,
+
+
+
+
+
+	    		  });
+	    		  
+	    		}
+
+	    		
+	    		writeUserData();
+
+	    		
+
+	    		console.log("totalSongsList ", totalSongsList);
+	    		function addRequest(){
+	    			var requestID = firebase.database().ref().child('users/' + mypersonID + '/requests').push().key;
+	    			console.log(requestID);
+	    			firebase.database().ref().child('users/' + mypersonID +'/requests/' + requestID).set(true);
+	    			/*firebase.database().ref().update({
+	    			    "/users/yash0314/requests/[REQUEST ID]": true
+	    			})*/
+	    			firebase.database().ref().child('requestsList/' + requestID).set({
+	    				songs: totalSongsList
+	    			});
+	    		}
+
+	    		addRequest();
+
+	  		});
+			
+			for (var i = 0; i < queuePlaylists.length; i++) {
+				var newButton = document.createElement("button");
+				newButton.className = "playNames";
+				newButton.innerHTML = queuePlaylists[i][0] + "&nbsp&nbsp";
+				newButton.innerHTML +="<i class='fa fa-times' aria-hidden='true'></i>"
+
+				
+
+
+				nameHolder.appendChild(newButton);
+
+
+				
+			}
+		}
+
+		spotifyApi.getMe(function(err, data) {
+			
+			var userName = document.getElementById("username");
+			username.innerHTML = data.display_name;
+			personName = data.display_name;
+
+
+			var userEmail = document.getElementById("userEmail");
+			userEmail.innerHTML = "Email: " + data.email;
+			personEmail = data.email;
+
+			mypersonID = data.id;
+
+			
+			
+			
+
+
+
+
+			
+
+
+
+			var userPic = document.getElementById("userpic");
+			userPic.setAttribute("src", data.images[0].url);
+			userid = data.id;
+			
+			spotifyApi.getUserPlaylists(userid)
+			  .then(function(data) {
+			    
+			    userPlaylists = data.items;
+			    
+
+			    var totalList = document.getElementById('totalList');
+				
+
+			    var playlistHolder = document.getElementById('playlistholder');
+			    var center = document.createElement("center");
+
+			    for (var i = 0; i < data.items.length; i++) {
+			    	
+			    	
+			    	
+			    	var newDiv =  document.createElement("div");
+			    	newDiv.className = "playlist";
+
+			    	var newImg = document.createElement("img");
+			    	newImg.setAttribute("src",data.items[i].images[0].url);
+			    	newDiv.appendChild(newImg);
+
+
+			    	var newP = document.createElement("p");
+			    	newP.innerHTML =  data.items[i].name ;
+
+			    	newDiv.appendChild(newP);
+
+			    	newDiv.id = i;
+			    	
+
+			    	center.appendChild(newDiv);
+
+			    }
+
+			    playlistHolder.appendChild(center);
+			    $(".playlist").click(function() {
+
+				    var playlistID = $(this).attr("id");
+
+				    var same = false;
+
+				    /* AU: maybe change the queuePlaylists data structure to this: 
+						{
+							"playlistID": "playlistName",
+							...
+						}
+
+						so that it's easy to check if a playlistID exists. 
+
+						This for loop could be extremely ineffecient since O(n) runtime vs practically a constant O(1) runtime with the new architecture.
+				    */
+
+				    for (var i = 0; i < queuePlaylists.length; i++) {
+				    	if(queuePlaylists[i][1] == playlistID){
+				    		same = true;
+				    	}
+				    }
+
+				    if(same == false){
+				    	$.dialog({
+						    title: 'Cool!',
+						    content: 'Added ' +userPlaylists[playlistID].name + " to queue!" ,
+						});
+						queuePlaylists.push([userPlaylists[playlistID].name, playlistID]);
+						
+					    
+
+					    spotifyApi.getPlaylistTracks(userid, data.items[playlistID].id)
+				    		.then(function(data){
+				    			
+				    			
+
+				    			for (var i = 0; i < data.items.length; i++) {
+
+				    				/*var totalSongsList = {
+				    					1: {
+				    						"name" : "The Race",
+				    						"albumName" : "SantanaWorld",
+				    						"length" : 234567,
+				    						"artists" : {
+				    							"21 Savage" : true
+				    						}
+
+				    					}
+				    				};*/
+
+				    				
+
+
+				    				var newTr = document.createElement("tr");
+							  		newTr.className = "trs";
+							  		var newTh = document.createElement("th");
+							  		var newDiv = document.createElement("div");
+							  		newDiv.className = "song";
+
+							  		var trackData = data.items[i].track;
+							  		
+
+
+							  		var songData = {
+				    					"name" : trackData.name,
+				    					"albumName" : trackData.album.name,
+				    					"length" : trackData.duration_ms,
+				    					"url" : data.items[i].track.external_urls.spotify
+
+				    				}
+
+				    				
+
+				    				totalSongsList[i + startIndex] = songData;
+
+
+				    				
+
+							  		var varDataLink = data.items[i].track.external_urls.spotify;
+							  		var varDataMs = trackData.duration_ms;
+							  		var varDataId = trackData.id;
+
+							  		/* AU: this constantly takes the milliseconds and computes the milliseconds and adds 2 mutliple times. Just add a direct variable */
+
+							  		newDiv.setAttribute("dataLink", varDataLink);
+							  		newDiv.setAttribute("dataMs", (varDataMs / 1000) + 2);
+							  		newDiv.setAttribute("dataId", varDataId);
+							  		
+							  		var artistTh = document.createElement("th");
+							  		var artistDiv = document.createElement("div");
+							  		artistDiv.className = "songDiv";
+							  		artistDiv.setAttribute("dataLink", varDataLink);
+							  		artistDiv.setAttribute("dataMs", (varDataMs / 1000) + 2);
+							  		artistDiv.setAttribute("dataId", varDataId);
+
+							  		var albumTh = document.createElement("th");
+							  		var albumDiv = document.createElement("div");
+							  		albumDiv.className = "songDiv";
+							  		albumDiv.setAttribute("dataLink", varDataLink);
+							  		albumDiv.setAttribute("dataMs", (varDataMs / 1000) + 2);
+							  		albumDiv.setAttribute("dataId", varDataId);
+
+							  		var durationTh = document.createElement("th");
+							  		var durationDiv = document.createElement("div");
+							  		durationDiv.className = "songDiv";
+							  		durationDiv.setAttribute("dataLink", varDataLink);
+							  		durationDiv.setAttribute("dataMs", (varDataMs / 1000) + 2);
+							  		durationDiv.setAttribute("dataId", varDataId);
+
+							  		var addedTh = document.createElement("th");
+							  		var addedDiv = document.createElement("div");
+							  		addedDiv.className = "songDiv";
+							  		addedDiv.setAttribute("dataLink", varDataLink);
+							  		addedDiv.setAttribute("dataMs", (varDataMs / 1000) + 2);
+							  		addedDiv.setAttribute("dataId", varDataId);
+
+							  		newDiv.innerHTML = trackData.name;
+							  		newTh.appendChild(newDiv);
+							  		newTr.appendChild(newTh);
+							  		totalList.appendChild(newTr);
+
+							  		for(var j = 0; j < trackData.artists.length - 1 ; j++){
+							  			artistDiv.innerHTML +=  trackData.artists[j].name + ", ";
+							  			artistTh.appendChild(artistDiv);
+							  		}
+
+							  		artistDiv.innerHTML +=  trackData.artists[trackData.artists.length - 1].name;
+							  		artistTh.appendChild(artistDiv);
+
+							  		newTr.appendChild(artistTh);
+
+							  		albumDiv.innerHTML =  trackData.album.name;
+							  		albumTh.appendChild(albumDiv);
+
+							  		newTr.appendChild(albumTh);
+
+							  		durationDiv.innerHTML =  parseInt((trackData.duration_ms / 1000)/60) + ":" + pad(parseInt((trackData.duration_ms / 1000)%60));
+
+							  		durationTh.appendChild(durationDiv);
+
+							  		newTr.appendChild(durationTh);
+
+							  		addedDiv.innerHTML = userPlaylists[playlistID].name;
+							  		addedTh.appendChild(addedDiv);
+							  		newTr.appendChild(addedTh);
+				    			}
+
+				    			startIndex = data.items.length;
+
+				    		}, function(err){
+				    			/* AU: Check the types of errors from the documentation and show this to the user rather than just logging it to console. */
+				    			console.error(err);
+				    	});
+				    	showPlaylistInQueue();
+				    }else{
+				    	$.dialog({
+						    title: 'Whoops!',
+						    content: userPlaylists[playlistID].name + " has already been added!" ,
+						});
+				    }
+	   
+				});
+
+			  }, function(err) {
+			    console.error(err);
+			});
+		})
+
+		
+
+		function pad(n) {
+    		return (n < 10) ? ("0" + n) : n;
+		}
+
+		/* AU: Do we still need this? We called getMe() previously. Limit the number of requests to Spotify API as much as possible. */
+		spotifyApi.getMe(function(err, data) {
+			email = data.email
+		})
+
+		function showTrack(input){
+			var table = document.getElementById('songTable');
+			table.innerHTML = "<tr><th>Song Name</th><th>Artist</th><th>Album</th><th>Length</th></tr>";
+
+			if(input != ""){
+				spotifyApi.searchTracks(input, function(err, data) {
+				  if (err) console.error(err); /* AU: again check for error types and show to user */
+				  else {
+				  	
+				  	
+				  	var trackData = data.tracks.items;
+				  	
+
+				  	for (var i = 0; i <= trackData.length - 1; i++) {
+				  		var newTr = document.createElement("tr");
+				  		newTr.className = "trs";
+				  		newTr.className += " song";
+				  		newTr.setAttribute("dataName", trackData[i].name);
+				  		newTr.setAttribute("dataLink", data.tracks.items[i].external_urls.spotify);
+				  		newTr.setAttribute("dataMs", (trackData[i].duration_ms / 1000) + 2);
+				  		newTr.setAttribute("dataId", trackData[i].id);
+				  		newTr.setAttribute("dataAlbum",trackData[i].album.name );
+
+				  		var newTh = document.createElement("th");
+				  		var newDiv = document.createElement("div");
+				  		newDiv.className = "";
+
+				  		newDiv.setAttribute("dataLink", data.tracks.items[i].external_urls.spotify);
+				  		newDiv.setAttribute("dataMs", (trackData[i].duration_ms / 1000) + 2);
+				  		newDiv.setAttribute("dataId", trackData[i].id);
+				  		newDiv.setAttribute("dataName", trackData[i].name);
+				  		newDiv.setAttribute("dataAlbum",trackData[i].album.name );
+				  		
+				  		var artistTh = document.createElement("th");
+				  		var artistDiv = document.createElement("div");
+				  		artistDiv.className = "songDiv";
+				  		artistDiv.setAttribute("dataLink", data.tracks.items[i].external_urls.spotify);
+				  		artistDiv.setAttribute("dataMs", (trackData[i].duration_ms / 1000) + 2);
+				  		artistDiv.setAttribute("dataId", trackData[i].id);
+				  		artistDiv.setAttribute("dataName", trackData[i].name);
+				  		artistDiv.setAttribute("dataAlbum",trackData[i].album.name );
+
+				  		var albumTh = document.createElement("th");
+				  		var albumDiv = document.createElement("div");
+				  		albumDiv.className = "songDiv";
+				  		albumDiv.setAttribute("dataLink", data.tracks.items[i].external_urls.spotify);
+				  		albumDiv.setAttribute("dataMs", (trackData[i].duration_ms / 1000) + 2);
+				  		albumDiv.setAttribute("dataId", trackData[i].id);
+				  		albumDiv.setAttribute("dataName", trackData[i].name);
+				  		albumDiv.setAttribute("dataAlbum",trackData[i].album.name );
+
+				  		var durationTh = document.createElement("th");
+				  		var durationDiv = document.createElement("div");
+				  		durationDiv.className = "songDiv";
+				  		durationDiv.setAttribute("dataLink", data.tracks.items[i].external_urls.spotify);
+				  		durationDiv.setAttribute("dataMs", (trackData[i].duration_ms / 1000) + 2);
+				  		durationDiv.setAttribute("dataId", trackData[i].id);
+				  		durationDiv.setAttribute("dataName", trackData[i].name);
+				  		durationDiv.setAttribute("dataAlbum",trackData[i].album.name );
+
+				  		newDiv.innerHTML = trackData[i].name;
+				  		newTh.appendChild(newDiv);
+				  		newTr.appendChild(newTh);
+				  		table.appendChild(newTr);
+
+				  		for(var j = 0; j < trackData[i].artists.length - 1 ; j++){
+				  			artistDiv.innerHTML +=  trackData[i].artists[j].name + ", ";
+				  			artistTh.appendChild(artistDiv);
+				  		}
+
+				  		artistDiv.innerHTML +=  trackData[i].artists[trackData[i].artists.length - 1].name;
+				  		artistTh.appendChild(artistDiv);
+
+				  		newTr.appendChild(artistTh);
+
+				  		albumDiv.innerHTML =  trackData[i].album.name;
+				  		albumTh.appendChild(albumDiv);
+
+				  		newTr.appendChild(albumTh);
+
+				  		durationDiv.innerHTML =  parseInt((trackData[i].duration_ms / 1000)/60) + ":" + pad(parseInt((trackData[i].duration_ms / 1000)%60));
+				  		durationTh.appendChild(durationDiv);
+
+				  		newTr.appendChild(durationTh);
+				  	}
+
+
+				  	$(".song").click(function() {
+				  		
+				  		var totalList = document.getElementById('totalList');
+						var datalink = $(this).attr('datalink');
+						var dataMs = $(this).attr('dataMs');
+						var id = $(this).attr('dataId');
+						var name = $(this).attr('dataName');
+						var dataAlbum = $(this).attr('dataAlbum');
+
+
+						$.get("http://54.193.111.46:3000/?s="+ datalink +"&n="+ id +"&d=" + dataMs + "&e=" + email)
+
+						$.dialog({
+						    title: 'Sweet!',
+						    content: 'Song added!',
+						});
+
+						
+
+						totalList.innerHTML += $(this)[0].innerHTML + "<th><div class='songDiv'>Single Track</div></th>";
+
+						var songData = {
+	    					"name" : name,
+	    					"albumName" : dataAlbum,
+	    					"length" : ((dataMs-2)*1000),
+	    					"url" : datalink
+
+	    				}
+
+	    				
+
+	    				totalSongsList[startIndex] = songData;
+	    				startIndex = startIndex + 1;
+					});
+
+					
+
+				  	
+
+				  }
+				});
+
+			}
+
+
+
+
+
+		}
+		
+		function logout(){
+			localStorage.setItem("accessToken", "");
+			window.location.href = "index.html";
+		}
+
+		
+		
+	</script>
+</body>
+
+
+</html>
+
